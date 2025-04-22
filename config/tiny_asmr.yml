@@ -1,0 +1,59 @@
+train_data:
+  dir: asmr-train-v3
+  frame_offset: 30
+  char_names: [ AlienSoldier, Mousey ]
+  skel_names: [ Skeleton00, Skeleton01 ] 
+  tgt_skel: Skeleton00
+
+representation:
+  skel: [lo, go] # S
+  pose: [q, p, r, pv, qv, pprev, c] # D_t
+  mesh: [v, diff3f_pca] # M
+  out: [r, q, c] # \hat{D_t}
+
+model:
+  # base settings
+  z_dim: 32
+  dropout: 0.1
+  norm: batch
+
+  # ablation settings
+  skel_sym: True
+  pred_offset_scale: False
+  
+  # model settings
+  SkeletonEncoder:
+      type: GATEnc
+      num_lyrs: 3
+      hid_dim: 16
+      heads_num: 16
+  MeshEncoder:
+      type: PointNet
+      num_lyrs: 3
+      hid_dim: 256
+  SkeletonDecoder:
+      type: GAT_Cross
+      num_lyrs: 3
+      hid_dim: 16
+      heads_num: 16
+
+train:
+  batch_size: 64
+  learning_rate: 0.0001
+  weight_decay: 0.000001
+  
+  lr_schedule: 
+    type: None
+
+  epoch_num: 50
+  save_per: 2
+  log_per_iter: 10
+
+  # misc
+  copy_orig_contact: False
+
+  loss:
+    vtx: 1.0
+    edge: 1.0
+    joint_chamfer: 1.0
+    joint_mesh_sdf: 1.0

@@ -1,0 +1,10 @@
+val_data:
+  dir: asmr-test-v3
+  frame_offset: 30
+  char_names: [ Astra ]
+  skel_names: [ Skeleton00 ]
+  tgt_skel: Skeleton00
+
+batch_size: 64
+metric: [ chamfer, pmd, els, chamfer_j2j, chamfer_j2b, chamfer_b2b ]
+val_per: 5

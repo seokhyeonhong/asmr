@@ -1,0 +1,6 @@
+[submodule "src/fairmotion"]
+	path = src/fairmotion
+	url = https://github.com/KAIST-VML/fairmotion
+[submodule "src/diffusion-net"]
+	path = src/diffusion-net
+	url = https://github.com/nmwsharp/diffusion-net.git
